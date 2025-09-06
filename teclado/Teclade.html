@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    
+    <style>
+      body {
+        background-image: url(baile.mov);
+
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 25px; 
+        height: 100vh;
+       
+        background-size: cover;
+        font-family: Arial, sans-serif;
+      }
+
+      canvas {
+        
+        border: 10px solid rgb(255, 255, 255);
+        
+      }
+
+      #canvas {
+        width: 900px;
+        height: 700px;
+      }
+
+      .instructions {
+        color: white;
+        width: 350px;
+        height: 490px;
+        background-color: rgba(64, 183, 24, 0.521);
+        border: 10px solid rgb(255, 255, 255);
+        padding: 15px;
+        font-size: 40px;
+        line-height: 2em;
+        font-family: 'Pixelify Sans', sans-serif;
+      }
+
+      .instructions h2 {
+        color: rgb(7, 55, 0);
+        text-align: center;
+        font-size: 30px;
+        
+        font-family: "luckiest guy", cursive;
+      }
+      .instructions h3 {
+        color: rgb(255, 255, 255);
+        text-align: center;
+        font-size: 20px;
+        margin-top: -1.5cm;
+        margin-bottom: 10px;
+        font-family: "Caveat", cursive;
+      }
+      .instructions p {
+        color: rgb(255, 255, 255);
+        
+        font-size: 30px;
+        margin-top: -0.5cm;
+        margin-bottom: 10px;
+        font-family: "Caveat";
+      }
+      
+      .instructions h4 {
+        color: rgb(255, 255, 255);
+        text-align: center;
+        font-size: 20px;
+        margin-top: 0.3cm;
+        line-height: 25px;
+        font-family: "Caveat", cursive;
+      }
+
+     
+    </style>
+  </head>
+  <body>
+
+    <div class="instructions">
+      <h2>ZORO Bailando</h2>
+      <h3>Teclas para Bailador</h3>
+      <p>A = 1</p>
+      <p>S = 2</p>
+      <p>D = 3</p>
+      <p>F = 4</p>
+      <p>G = 5</p>
+      
+    </div>
+
+    <canvas id="canvas" width="800" height="600"></canvas>
+
+    
+    <script>
+    const Keycode = {
+      A: 1,
+      S: 2,
+      D: 3,
+      F: 4,
+      G: 5,
+      
+
+      SPACE: 32
+    };
+
+    let images = {};
+let currentKey = "A";
+let canvas, context;
+
+    function loadImages() {
+      images["A"] = new Image();
+      images["A"]. src = "1.png";
+      
+      images["S"] = new Image();
+      images["S"].src = "2.png";
+
+      images["D"] = new Image();
+      images["D"].src = "3.png";
+
+      images["F"] = new Image();
+      images["F"].src = "4.png";
+
+      images["G"] = new Image();
+      images["G"].src = "5.png";
+      
+    }
+
+    window.onload = function () {
+      canvas = document.getElementById("canvas");
+      context = canvas.getContext("2d");
+      loadImages();
+      gameLoop();
+    };
+
+    function draw() {
+    
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+   
+      let img = images[currentKey];
+      if (img && img.complete) {
+        context.drawImage(img, canvas.width / 2 - 100, canvas.height / 2 - 250, 600, 600);
+      }
+    }
+
+    function gameLoop() {
+      draw();
+      requestAnimationFrame(gameLoop);
+    }
+
+    window.addEventListener('keydown', function(event) {
+    
+      if (event.code === "Space") {
+        currentColorIndex = (currentColorIndex + 1) % colors.length;
+      }
+
+      if (["KeyA", "KeyS", "KeyD", "KeyF", "KeyG"].includes(event.code)) {
+        currentKey = event.code.replace("Key", "");
+
+      }
+    });
+    </script>
+  </body>
+</html>
